@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="pt_br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script>
+        function getEmpresa(event) {
+	        event.preventDefault();
+	        var cnpj = "2323232323343";
+	        cnpj = document.getElementById("cnpjInput").value;
+	        var estado = "SP";
+	        estado = document.getElementById("estadoInput").value;
+	        var situacao = "02";
+	        situacao = document.getElementById("situacaoInput").value;
+
+	        $.get("/empresa?id=TDC001&cnpj=" + cnpj + "&estado=" + estado + "&situacao=" + situacao, function(data, status){
+               $("#empresaCard").text("OK");
+	            return "OK";
+          });
+        }
+
+        function postEmpresa(event) {
+          event.preventDefault();
+          var cnpj = "2323232323343";
+          cnpj = document.getElementById("cnpjPostInput").value;
+          var estado = "SP";
+          estado = document.getElementById("estadoPostInput").value;
+          var situacao = "02";
+          situacao = document.getElementById("situacaoPostInput").value;
+
+	        $.post("/empresa", {'id':'TDC001','cnpj':cnpj,'estado':estado,'situacao':situacao}, function(data, status){
+               $("#empresaPostCard").text(data);
+               return "OK";
+          });
+        }
+
+      	function getSituacaoEmpresa(event) {
+          event.preventDefault();
+          var cnpj = "2323232323343";
+          cnpj = document.getElementById("cnpjGetInput").value;
+
+          $.get("/empresa/busca?id=TDC001&cnpj=" + cnpj, function(data, status){
+               $("#empresaGetCard").text(data);
+               return "OK";
+          });
+        }
+
+        function postSituacaoEmpresa(event) {
+          event.preventDefault();
+          var cnpj = "2323232323343";
+          cnpj = document.getElementById("cnpjVerPostInput").value;
+	        $.post("/empresa/busca", {'id':'TDC001','cnpj':cnpj}, function(data, status){
+               $("#empresaSitPostCard").text(data);
+               return "Post OK";
+          });
+        }
+
+     </script>
+
+    <title>TDC Inovation 2021</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+      <img src="/imagens/logotipo.png" width=50 class="rounded-circle" alt="...">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+          </li>   
+	  <li class="nav-item active">
+            <a class="nav-link" href="/web">Web</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/sobre">Sobre</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+  <div class="container">
+  <p></p>
+  <center>
+  <h3>TDC Inovation 2021 - Projeto de Engenharia de Dados</h3>
+
+  <div id="titulo"><b>Cadastro da situação de Empresas</b></div>
+  </center>
+  <p></p>
+
+  <div class="container">
+  <div class="row">
+
+  <div class="col">
+
+  <div  class="jumbotron bg-primary" style="width: 24rem;" >
+
+  <form>
+          <h3>Adicionar Empresa</h3>
+  <div class="form-group">
+    <label for="cnpjPostInput">CNPJ</label>
+    <input type="text" class="form-control" id="cnpjPostInput" aria-describedby="cnpjPostHelp" placeholder="Entre com CNPJ">
+    <small id="cnpjPostHelp" class="form-text text-muted">CNPJ da empresa</small>
+  </div>
+  <div class="form-group">
+    <label for="estadoPostInput">Estado</label>
+    <input type="text" class="form-control" id="estadoPostInput" placeholder="Estado">
+  </div>
+  <div class="form-group">
+    <label for="situacaoPostInput">Situação</label>
+    <input type="text" class="form-control" id="situacaoPostInput" placeholder="Situação">
+  </div>
+
+  <button class="btn btn-primary"  onclick=postEmpresa(event)>Submit</button>
+  <p class="card-text" id="empresaPostCard" > # </p>
+
+  </form>
+
+  </div>
+
+  </div>
+
+  <div class="col">
+
+  <div  class="jumbotron bg-primary" style="width: 24rem;">
+  <form>
+  <h3>Verificar Empresa</h3>
+  <div class="form-group">
+    <label for="cnpjVerPostInput">CNPJ</label>
+    <input type="text" class="form-control" id="cnpjVerPostInput" aria-describedby="cnpjVerPostHelp" placeholder="Entre com CNPJ">
+    <small id="cnpjVerPostHelp" class="form-text text-muted">CNPJ da empresa</small>
+  </div>
+
+  <button class="btn btn-primary"  onclick=postSituacaoEmpresa(event)>Submit</button>
+  <p class="card-text" id="empresaSitPostCard" > # </p>
+
+  </form>
+
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+
+  </div>
+
+  </div>
+
+  </div>
+  </div>
+
+  <center>
+	  <p><b>Projeto prático na AWS</b></p>
+  </center>
+  <p></p>
+	
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <a class="navbar-brand" href="#">TDC 2021 by @lymtec - Todos os direitos reservados</a>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
